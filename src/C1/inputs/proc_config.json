@@ -1,0 +1,8 @@
+{
+    "sessions": [2, 12, 14, 21, 27, 28, 31, 39, 41, 42],
+    "stages": ["baseline", "shared", "individual"],
+    "min_freq": 4,
+    "max_freq": 50,
+    "channels": ["TP9", "TP10", "AF7", "AF8"],
+    "bandfreqs": {"theta":[4,8], "alpha":[8,13], "beta":[13,30], "gamma":[30,50]}
+}

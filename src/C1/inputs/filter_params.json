@@ -1,0 +1,10 @@
+{
+    "filter_order": 2,
+    "bandwidth": [
+        4,
+        50
+    ],
+    "type": "bandpass",
+    "fs": 256,
+    "output": "sos"
+}
