@@ -87,6 +87,27 @@ def run_ml(feat_mat, cwd):
     with open(output_path, "wb") as f:
         pickle.dump(best_model_obj, f)
 
+    if best_name == "RandomForest":
+        nombres_params = ['n_estimators', 'max_depth']
+        bounds = ((10, 200), (2, 20))
+    elif best_name == "SVM":
+        nombres_params = ['C', 'gamma']
+        bounds = ((0.1, 100.0), (0.001, 1.0))
+    elif best_name == "GradientBoosting":
+        nombres_params = ['n_estimators', 'learning_rate']
+        bounds = ((50, 300), (0.01, 0.5))
+
+    f1_ganador = resultados_modelos[best_name]['report']['macro avg']['f1-score']
+
+    dict_ml = {
+        'mejor_modelo': best_model_obj,
+        'hyperparams_names': nombres_params,
+        'bounds_recomendados': bounds,
+        'f1_score': f1_ganador,
+        'accuracy': resultados_modelos[best_name]['accuracy']
+    }
+
+    return dict_ml, X_train, y_train, X_test, y_test 
 
 
 
