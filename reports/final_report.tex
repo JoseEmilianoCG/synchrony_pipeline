@@ -74,11 +74,16 @@ Finalmente, en el módulo de visualización e integración (C6), se generaron fi
 En este proyecto, la comparación final se realizó entre los modelos de aprendizaje automático implementados en C4. Los módulos C2 y C5 no fueron incluidos en la tabla comparativa final debido a que, de acuerdo con la naturaleza del problema y las reglas de composición del framework para equipos de este tamaño, C2 no resultó aplicable y C5 fue omitido justificadamente.
 
 \section{Resultados del análisis exploratorio (C1)}
+
+La figura 1 despliega el número de características de sincronía EEG que son significativas en cada sesión, esto en la comparativa entre lectura compartida e individual. De esta forma, podemos observar que la díada 12 exhibe el mayor número de características estadísticamente significativas (51), mientras que la díada 14 tiene la menor cantidad (1). Esto se puede relacionar con la variabilidad inter-sujeto inherente a las señales de EEG, por la cual existen diferencias en el comportamiento observado entre distintas díadas.
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{figures/eda/significant_features_by_session.png}
     \caption{Número de características de sincronía EEG estadísticamente significativas por sesión.}
 \end{figure}
+
+La figura 2 nos brinda una vista general al tamaño de efecto absoluto de las principales características identificadas. Esto nos permite observar que las mayores diferencias entre lectura compartida e individual ocurren: (1) en la banda beta y (2) principalmente en combinaciones de electrodos frontales y lateralizados a la derecha.
 
 \begin{figure}[H]
     \centering
@@ -86,17 +91,23 @@ En este proyecto, la comparación final se realizó entre los modelos de aprendi
     \caption{Principales características EEG ordenadas por magnitud del tamaño de efecto absoluto (Delta de Cliff).}
 \end{figure}
 
+La figura 3 muestra los valores normalizados de sincronía promedio para cada uno de los estados. Como se puede apreciar, los estados de reposo y lectura individual parecieran mostrar una mayor sincronía que la lectura compartida. Esto se puede deber a dos razones: datos de referencia ruidosos y posibles outliers (casos en los que la sincronía es extrañamente alta en reposo o lectura individual, por ejemplo).
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{figures/eda/condition_means.png}
     \caption{Sincronía promedio EEG por condición experimental (línea base, lectura compartida y lectura individual) y por métrica.}
 \end{figure}
 
+La figura 4 muestra gráficos de caja y bigote de las 3 características más estadísticamente significativas. Aquí una vez más podemos observar que la sincronía en estado de lectura individual es más alta que en lectura compartida.
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.95\textwidth]{figures/eda/boxplot_significant_features.png}
     \caption{Diagramas de caja de las características de sincronía EEG más significativas, comparando lectura compartida e individual.}
 \end{figure}
+
+La figura 5 despliega un mapa de calor de las correlaciones entre las características EEG con la mayor varianza. Esto nos permite observar que las características de banda frecuencial beta en todas las combinaciones de electrodos se encuentran altamente correlacionadas entre sí; algo similar ocurre para las combinaciones de banda frecuencial gamma que entraron en el grupo observado. Por lo contrario, características de beta se encuentran levemente correlacionadas con aquellas de gamma (y viceversa). Esto tiene sentido al ser que ambas bandas, a pesar de ser distintas entre sí se encuentran contiguas en el espectro, con lo que es posible que tengan cierto nivel de influencia mutua.
 
 \begin{figure}[H]
     \centering
@@ -105,11 +116,22 @@ En este proyecto, la comparación final se realizó entre los modelos de aprendi
 \end{figure}
 
 \section{Resultados de aprendizaje automático (C4)}
+
+La Figura 6 muestra la comparación del desempeño de 3 algoritmos de aprendizaje automático: Gradient Boosting, Random Forest y Support Vector Machine (SVM) en la tarea de clasificación del tipo de lectura (individual vs compartida), utilizando como métricas la exactitud (accuracy) y el F1 score macro. 
+
+Se puede observar que el modelo  Random Forest presenta el mejor desempeño global, alcanzando valores de 0.70 tanto en exactitud como en F1 macro, seguido muy de cerca por Gradient Boosting con 0.68 en ambas métricas. Por otro lado, SVM muestra un desempeño ligeramente inferior con valores de 0.64
+
+La similitud entre accuracy y F1 macro en todos los modelos sugiere un balance entre clases, lo cual es relevante dada la naturaleza del estudio. En conjunto, estos resultados indican que los modelos basados en árboles, particularmente Random Forest, captan de manera más efectiva los patrones derivados de las características EEG en comparación con SVM.
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{figures/models/model_comparison.png}
     \caption{Comparación del desempeño de los modelos utilizando exactitud y F1 macro.}
 \end{figure}
+
+La Figura 7 muestra la importancia relativa de las variables extraídas del EEG en el modelo con mejor desempeño (Gradient Boosting). Las características corresponden a combinaciones de canales (por ejemplo, AF7, TP9, etc) y bandas de frecuencia (alpha, beta, gamma y theta), así como a la variable de sesión experimental. 
+
+Se identifica que la característica más relevante es la actividad beta entre los canales TP9 Y AF7. Así mismo, destacan interacciones en la banda gamma (AF7-AF7) y la banda beta  (TP9-AF8), lo que podría reflejar procesos cognitivos asociados a la lectura como la atención o el procesamiento lingüístico. 
 
 \begin{figure}[H]
     \centering
@@ -119,6 +141,29 @@ En este proyecto, la comparación final se realizó entre los modelos de aprendi
 
 \section{Resultados de optimización (C3)}
 
+La Figura muestra la evolución del error durante el proceso de optimización de hiperparámetros. Se observa una disminución progresiva del error, indicando la convergencia del algoritmo hacia una mejor configuración del modelo.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/optimization/curva_mejora.png}
+    \caption{Curva de convergencia del proceso de optimización de hiperparámetros.}
+\end{figure}
+
+Adicionalmente, la Tabla presenta el desempeño final del modelo optimizado.
+
+\begin{table}[H]
+\centering
+\caption{Resultados del modelo optimizado}
+\begin{tabular}{rr}
+\toprule
+Accuracy final optimizado & Mejora neta (\%) \\
+\midrule
+0.699 & -0.280 \\
+\bottomrule
+\end{tabular}
+
+\end{table}
+
 \section{Tabla comparativa de modelos}
 \begin{table}[H]
 \centering
@@ -127,8 +172,8 @@ En este proyecto, la comparación final se realizó entre los modelos de aprendi
 \toprule
 Modelo & Exactitud & Precisión & F1 (macro) & F1 (ponderado) \\
 \midrule
-GradientBoosting & 0.683 & 0.683 & 0.683 & 0.683 \\
-RandomForest & 0.674 & 0.674 & 0.672 & 0.673 \\
+RandomForest & 0.702 & 0.702 & 0.701 & 0.701 \\
+GradientBoosting & 0.681 & 0.681 & 0.680 & 0.680 \\
 SVM & 0.639 & 0.638 & 0.638 & 0.638 \\
 \bottomrule
 \end{tabular}
@@ -137,6 +182,10 @@ SVM & 0.639 & 0.638 & 0.638 & 0.638 \\
 
 \section{Conclusiones}
 
-Texto
+En este proyecto se desarrolló un pipeline integral para el análisis de sincronía cerebral a partir de señales EEG, abarcando desde el procesamiento de datos hasta la generación de modelos predictivos y visualizaciones interpretables. Los resultados obtenidos muestran que las características de sincronía permiten distinguir entre condiciones de lectura individual y compartida, evidenciando su potencial como indicadores de actividad cognitiva.
+
+Asimismo, la comparación entre modelos de aprendizaje automático evidenció que el modelo Random Forest presenta el mejor desempeño global, superando ligeramente a Gradient Boosting y mostrando una mayor capacidad para capturar los patrones presentes en los datos en términos de exactitud y F1-score.
+
+Adicionalmente, la etapa de optimización de hiperparámetros permitió refinar el desempeño del modelo seleccionado mediante la exploración sistemática del espacio de parámetros. La curva de convergencia evidenció una disminución progresiva del error, indicando que el algoritmo logró acercarse a una configuración estable. Sin embargo, la evaluación final mostró que la mejora en desempeño fue marginal, lo cual sugiere que el modelo base ya se encontraba cercano a un óptimo local.
 
 \end{document}

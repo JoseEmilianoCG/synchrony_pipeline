@@ -1,4 +1,4 @@
 Modelo,Exactitud,Precisión,F1 (macro),F1 (ponderado)
-GradientBoosting,0.683,0.683,0.683,0.683
-RandomForest,0.674,0.674,0.672,0.673
+RandomForest,0.702,0.702,0.701,0.701
+GradientBoosting,0.681,0.681,0.68,0.68
 SVM,0.639,0.638,0.638,0.638

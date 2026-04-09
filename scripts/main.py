@@ -3,6 +3,7 @@ from src.C4.train_ml_models import run_ml
 from src.C3.hyperparameter_search import hyperparameter_search
 from sklearn.metrics import accuracy_score, f1_score
 import os
+import pickle
 
 cwd = os.getcwd()
 
@@ -43,6 +44,12 @@ dict_final_viz = {
     'f1_mejorado': f1_final,
     'incremento': acc_final - acc_base
 }
+
+output_dir = os.path.join(cwd, "src", "C3", "outputs")
+os.makedirs(output_dir, exist_ok=True)
+
+with open(os.path.join(output_dir, "final_optimization_metrics.pkl"), "wb") as f:
+    pickle.dump(dict_final_viz, f)
 
 ### ============= 5. VISUALIZATION ============= ###
 # Aquí es donde Daisy (C6) tomaría el control
