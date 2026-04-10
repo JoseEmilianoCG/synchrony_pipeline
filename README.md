@@ -12,11 +12,10 @@ El sistema abarca desde la carga de datos crudos hasta la generación automátic
 
 El proyecto busca responder si existen patrones de sincronización cerebral que permitan diferenciar entre distintos niveles de actividad cognitiva durante la lectura.
 
-La sincronización inter-cerebral es un fenómeno clave en neurociencia social, asociado a procesos como la atención conjunta y la interacción colaborativa :contentReference[oaicite:0]{index=0}.
-
+La sincronización inter-cerebral es un fenómeno clave en neurociencia social, asociado a procesos como la atención conjunta y la interacción colaborativa.
 ## Datos
 
-- Fuente: Experimento realizado en la FIL Monterrey 2025 :contentReference[oaicite:1]{index=1}  
+- Fuente: Experimento realizado en la FIL Monterrey 2025. 
 - Participantes: 20 (10 adultos, 10 niños)
 - Condiciones:
   - Reposo
@@ -37,7 +36,7 @@ El flujo del sistema es:
 
 Este flujo está orquestado desde el script principal:
 
-`scripts/main.py` :contentReference[oaicite:2]{index=2}
+`scripts/main.py`
 
 ## Estructura de repositorio
 
