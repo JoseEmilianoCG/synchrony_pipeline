@@ -145,7 +145,7 @@ La Figura muestra la evolución del error durante el proceso de optimización de
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{figures/optimization/curva_mejora.png}
+    \includegraphics[width=0.8\textwidth]{figures/optimization/curva_convergencia.png}
     \caption{Curva de convergencia del proceso de optimización de hiperparámetros.}
 \end{figure}
 
@@ -154,11 +154,11 @@ Adicionalmente, la Tabla presenta el desempeño final del modelo optimizado.
 \begin{table}[H]
 \centering
 \caption{Resultados del modelo optimizado}
-\begin{tabular}{rr}
+\begin{tabular}{rrr}
 \toprule
-Accuracy final optimizado & Mejora neta (\%) \\
+accuracy_mejorado & f1_mejorado & incremento \\
 \midrule
-0.699 & -0.280 \\
+0.683 & 0.682 & -0.004 \\
 \bottomrule
 \end{tabular}
 
@@ -172,8 +172,8 @@ Accuracy final optimizado & Mejora neta (\%) \\
 \toprule
 Modelo & Exactitud & Precisión & F1 (macro) & F1 (ponderado) \\
 \midrule
-RandomForest & 0.702 & 0.702 & 0.701 & 0.701 \\
-GradientBoosting & 0.681 & 0.681 & 0.680 & 0.680 \\
+RandomForest & 0.688 & 0.688 & 0.686 & 0.687 \\
+GradientBoosting & 0.682 & 0.682 & 0.681 & 0.682 \\
 SVM & 0.639 & 0.638 & 0.638 & 0.638 \\
 \bottomrule
 \end{tabular}

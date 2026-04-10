@@ -670,7 +670,7 @@ La Figura muestra la evolución del error durante el proceso de optimización de
 
 \\begin{{figure}}[H]
     \\centering
-    \\includegraphics[width=0.8\\textwidth]{{figures/optimization/curva_mejora.png}}
+    \\includegraphics[width=0.8\\textwidth]{{figures/optimization/curva_convergencia.png}}
     \\caption{{Curva de convergencia del proceso de optimización de hiperparámetros.}}
 \\end{{figure}}
 
@@ -714,16 +714,17 @@ def generate_report():
     metrics = load_pickle("src/C4/outputs/all_metrics.pkl")
     best_model = load_pickle("src/C4/outputs/best_model.pkl")
 
-    c3_fig_path = Path("src/C3/outputs/curva_mejora.png")
-    c3_table_path = Path("src/C3/outputs/final_optimization_metrics.csv")
+    c3_fig_path = Path("src/C3/outputs/curva_convergencia.png")
+    c3_table_path = Path("src/C3/outputs/final_optimization_metrics.pkl")
 
     if c3_fig_path.exists():
         import shutil
-        dest = paths["optimization"] / "curva_mejora.png"
+        dest = paths["optimization"] / "curva_convergencia.png"
         shutil.copy(c3_fig_path, dest)
 
     if c3_table_path.exists():
-        opt_metrics_df = pd.read_csv(c3_table_path)
+        opt_dict = load_pickle(c3_table_path) 
+        opt_metrics_df = pd.DataFrame([opt_dict]) 
     else:
         opt_metrics_df = None
 
